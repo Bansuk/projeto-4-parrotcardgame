@@ -1,0 +1,52 @@
+/** 0.0 - Tags **/
+body{
+    background-color: #EEF9BF;
+}
+
+/** 1.0 - Header **/
+.header__title{
+    font-family: 'Roboto', sans-serif;
+    font-size: 56px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #75b79e;
+    margin: 40px auto;
+    text-align: center;
+}
+
+/** 2.0 - Deck **/
+.deck{
+    width: 79vw;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.deck__card{
+    width: 117px;
+    height: 146px;
+    background-color: #a7e9af;
+    border-radius: 5px;
+    border: 1px solid #99CEA8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 34px 34px auto;
+}
+
+.card__img{
+    width: 100px;
+    height: 100px;
+    margin: auto;
+}
+
+@media (max-width: 629px){
+    .deck{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .deck__card{
+        margin: 0 auto 34px auto;
+    }
+}
