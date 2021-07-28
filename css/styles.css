@@ -40,6 +40,12 @@ body{
     margin: auto;
 }
 
+/** 3.0 - Auxiliar **/
+.hidden{
+    display: none;
+}
+
+/** 4.0 - Mobile **/
 @media (max-width: 629px){
     .deck{
         flex-direction: column;
