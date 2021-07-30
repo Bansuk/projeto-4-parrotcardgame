@@ -94,12 +94,30 @@ function selectedCard(card){
             }
 
             if(i === listFrontCards.length - 1){
-                setTimeout(function () {alert("Você ganhou em " + numJogadas + " jogadas!")}, 1000);
+                endGame();
             }
         }
     } else{
         fstCard = card;
     }
+}
+
+function endGame(){
+    setTimeout(function () {alert("Você ganhou em " + numJogadas + " jogadas!")}, 1500);
+    setTimeout(function () {if(prompt("Gostaria de jogar novamente?") === "Sim"){
+        resetGame();
+    }}, 2000);
+}
+
+function resetGame(){
+    const listCards = document.querySelector("ul");
+
+    while (listCards.firstChild) {
+        listCards.removeChild(listCards.firstChild);
+      }
+
+      numJogadas = 0;
+      startGame();
 }
 
 //support functions
