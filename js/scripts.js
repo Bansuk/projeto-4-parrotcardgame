@@ -75,6 +75,7 @@ function randomCardBackImage(cardBackOptionsArray, numCards){
 }
 
 function selectedCard(card){
+    const listFrontCards = document.querySelectorAll(".card__front");
     card.children.item(0).classList.add("hidden");
     card.children.item(1).classList.remove("hidden");
     numJogadas++;
@@ -86,6 +87,15 @@ function selectedCard(card){
                 card.children.item(1).classList.add("hidden");
                 card.children.item(0).classList.remove("hidden");
             }, 1000);
+        } else{
+            let i = 0;
+            while(listFrontCards[i].classList.contains("hidden") && i < listFrontCards.length - 1){
+                i++;
+            }
+
+            if(i === listFrontCards.length - 1){
+                setTimeout(function () {alert("Você ganhou em " + numJogadas + " jogadas!")}, 1000);
+            }
         }
     } else{
         fstCard = card;
