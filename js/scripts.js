@@ -1,5 +1,8 @@
-let numJogadas = 0;
-let fstCard;
+let numPlays = 0;
+let previousCardFrontImage;
+let previousCardBackImage;
+let timeElapsed = 0;
+let stopTimerd;
 
 startGame();
 
@@ -12,11 +15,13 @@ function startGame(){
 
     const cardBackOptionsArray = initializeCardBackOptions();
     shuffleDeck(cardBackOptionsArray, numCards);
+    stopTimerId = setInterval(runTimer, 1000);
 }
 
 function initializeCardBackOptions(){
     return cardBackOptionsArray = ["bobrossparrot.gif", "explodyparrot.gif", "fiestaparrot.gif", "metalparrot.gif", "revertitparrot.gif", "tripletsparrot.gif", "unicornparrot.gif"];
 }
+
 function shuffleDeck(cardBackOptionsArray, numCards){
     const deck = document.querySelector(".deck");
     const card = document.createElement("li");
@@ -28,26 +33,36 @@ function shuffleDeck(cardBackOptionsArray, numCards){
     for(let i = 0; i < numCards; i++){
         card.classList.add("card__number" + i);
         deck.appendChild(card.cloneNode(true));
-        cardBack = document.querySelector(".card__number" + i + " > .card__back");
+        cardBack = document.querySelector(".card__number" + i + " > .card__back > img");
         cardBack.setAttribute("src", "assets/" + cardArray[i]);
         card.classList.remove("card__number" + i);
     }
 }
 
 function createCard(card, cardBackOptionsArray, numCards){
-    const cardFront = document.createElement("img");
-    const cardBack = document.createElement("img");
+    const cardFront = document.createElement("div");
+    const cardBack = document.createElement("div");
+    const cardFrontImage = document.createElement("img");
+    const cardBackImage = document.createElement("img");
 
     card.classList.add("deck__card");
     card.setAttribute("onclick", "selectedCard(this);")
-    cardFront.setAttribute("src", "assets/front.png");
-    cardFront.classList.add("card__img");
-    cardFront.classList.add("card__front");
-    cardBack.classList.add("card__img");
-    cardBack.classList.add("card__back");
+    
+    cardFront.classList.add("card__front", "card__face");
+
+    cardFrontImage.setAttribute("src", "assets/front.png");
+    cardFrontImage.classList.add("card__img");
+
+    cardBack.classList.add("card__back", "card__face");
     cardBack.classList.add("hidden");
+
+    cardBackImage.classList.add("card__img");
+
     card.appendChild(cardFront);
     card.appendChild(cardBack);
+    cardFront.appendChild(cardFrontImage);
+    cardBack.appendChild(cardBackImage);
+
     return randomCardBackImage(cardBackOptionsArray, numCards);
 }
 
@@ -76,16 +91,20 @@ function randomCardBackImage(cardBackOptionsArray, numCards){
 
 function selectedCard(card){
     const listFrontCards = document.querySelectorAll(".card__front");
-    card.children.item(0).classList.add("hidden");
-    card.children.item(1).classList.remove("hidden");
-    numJogadas++;
-    if(numJogadas % 2 === 0){
-        if(fstCard.children.item(1).getAttribute("src") !== card.children.item(1).getAttribute("src")){
+    const cardFrontImage = card.children.item(0);
+    const cardBackImage = card.children.item(1);
+    
+    cardFrontImage.classList.add("hidden");
+    cardBackImage.classList.remove("hidden");
+    numPlays++;
+
+    if(numPlays % 2 === 0){
+        if(previousCardBackImage.firstChild.getAttribute("src") !== cardBackImage.firstChild.getAttribute("src")){
             setTimeout(function (){
-                fstCard.children.item(1).classList.add("hidden");
-                fstCard.children.item(0).classList.remove("hidden");
-                card.children.item(1).classList.add("hidden");
-                card.children.item(0).classList.remove("hidden");
+                previousCardBackImage.classList.add("hidden");
+                previousCardFrontImage.classList.remove("hidden");
+                cardBackImage.classList.add("hidden");
+                cardFrontImage.classList.remove("hidden");
             }, 1000);
         } else{
             let i = 0;
@@ -98,12 +117,14 @@ function selectedCard(card){
             }
         }
     } else{
-        fstCard = card;
+        previousCardFrontImage = cardFrontImage;
+        previousCardBackImage = cardBackImage;
     }
 }
 
 function endGame(){
-    setTimeout(function () {alert("Você ganhou em " + numJogadas + " jogadas!")}, 1500);
+    stopTimer();
+    setTimeout(function () {alert(`Você ganhou em ${numPlays} jogadas e em ${timeElapsed} segundos!`)}, 1500);
     setTimeout(function () {if(prompt("Gostaria de jogar novamente?") === "Sim"){
         resetGame();
     }}, 2000);
@@ -116,8 +137,21 @@ function resetGame(){
         listCards.removeChild(listCards.firstChild);
       }
 
-      numJogadas = 0;
+      numPlays = 0;
+      timeElapsed = 0;
+      stopTimerkId = 0;
       startGame();
+}
+
+function runTimer(){
+    const seconds = document.querySelector(".header__timer-seconds");
+    
+    timeElapsed++;
+    seconds.innerHTML = timeElapsed;
+}
+
+function stopTimer(){
+    clearInterval(stopTimerId);
 }
 
 //support functions

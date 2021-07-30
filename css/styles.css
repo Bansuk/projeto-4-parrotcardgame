@@ -25,20 +25,44 @@ body{
 .deck__card{
     width: 117px;
     height: 146px;
-    background-color: #a7e9af;
-    border-radius: 5px;
-    border: 1px solid #99CEA8;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 34px 34px auto;
+    position: relative;
+}
+
+.card__back{
+    transform: rotateY(180deg);
+}
+
+.deck__card:active .card__back{
+    transform: rotateY(0deg);
+}
+
+.deck__card:active .card__front{
+    transform: rotateY(-180deg);
+}
+
+.card__face{
+    width: 100%;
+    height: 100%;;
+    background-color: #a7e9af;
+    border-radius: 5px;
+    border: 1px solid #99CEA8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    /**backface-visibility: hidden;**/
+    transition: all .5s;
+    transform-style: preserve-3d;
 }
 
 .card__img{
     width: 100px;
     height: 100px;
     margin: auto;
-    position: absolute;
 }
 
 /** 3.0 - Auxiliar **/
@@ -56,4 +80,16 @@ body{
     .deck__card{
         margin: 0 auto 34px auto;
     }
+}
+
+/** 5.0 Timer **/
+.header__timer{
+    font-size: 24px;
+    font-family: 'Roboto', sans-serif;
+    width: 10vw;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 20px;
+    margin-top: 2vh;
+    margin-left: 89vw;
 }
