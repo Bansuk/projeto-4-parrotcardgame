@@ -38,6 +38,7 @@ body{
     width: 100px;
     height: 100px;
     margin: auto;
+    position: absolute;
 }
 
 /** 3.0 - Auxiliar **/
