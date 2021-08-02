@@ -32,18 +32,6 @@ body{
     position: relative;
 }
 
-.card__back{
-    transform: rotateY(180deg);
-}
-
-.deck__card:active .card__back{
-    transform: rotateY(0deg);
-}
-
-.deck__card:active .card__front{
-    transform: rotateY(-180deg);
-}
-
 .card__face{
     width: 100%;
     height: 100%;;
@@ -54,9 +42,6 @@ body{
     align-items: center;
     justify-content: center;
     position: absolute;
-    /**backface-visibility: hidden;**/
-    transition: all .5s;
-    transform-style: preserve-3d;
 }
 
 .card__img{

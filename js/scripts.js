@@ -2,7 +2,8 @@ let numPlays = 0;
 let previousCardFrontImage;
 let previousCardBackImage;
 let timeElapsed = 0;
-let stopTimerd;
+let stopTimerId;
+let players = [];
 
 startGame();
 
@@ -10,6 +11,8 @@ function startGame(){
     let numCards;
 
     do{
+        players.push(prompt("Qual o seu nome?"));
+        console.log(players[0])
         numCards = prompt("Com quantas cartas você gostaria de jogar?");
     } while(numCards % 2 !== 0 || numCards < 4 || numCards > 14);
 
